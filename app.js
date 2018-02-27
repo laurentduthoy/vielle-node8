@@ -159,34 +159,20 @@ const i18n = require('i18n');
 app.use(i18n.init);
 
 i18n.configure({ 
+
    locales : ['fr', 'en'],
    cookie : 'langueChoisie', 
    directory : __dirname + '/locales' })
 
 
-app.use(i18n.init);
-
-app.get('/:locales(en|fr)') , (req,res) => {
-	res.cokkie('langueChoisie' , req.param.locale)
-	res.setLocal(req.params.locale)
+app.get('/:locale(en|fr)' , (req,res) => {
+	res.cookie('langueChoisie' , req.params.locale)
+	res.setLocale(req.params.locale)
 	res.render("accueil.ejs");
-}
+})
 
 app.get("/" , function (req,res){
 	res.render('accueil.ejs')
 	console.log('Cookies: ', req.cookies)
 	console.log('Cookies: ', req.cookies.langueChoisie)
 })
-
-app.get('/fr', function(req, res){
-  let bienvenue = res.__('Hello');
-});
-
-app.get('/en', (req, res) => {
-// 'en' est enregistré comme langue
-res.setLocale('en')
-// on en profite pour sauver la langue dans un cookie
-res.cookie('moncookie', 'en');
-});
- 
-app.listen(8080)
