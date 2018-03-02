@@ -15,10 +15,10 @@ if (typeof cle !== 'undefined'  && cle)
 <table class="tableau">
  <tr>
  <th><a href='/trier/id/<%= objOrdre["_id"]  %>'>ID</a></th>
- <th><a href='/trier/nom/<%= objOrdre.nom  %>'>Nom</a></th> 
+ <th><a href='/trier/nom/<%= objOrdre.nom  %>'><%= __('nom') %></a></th> 
  <th><a href='/trier/prenom/<%= objOrdre.prenom  %>'><%= __('prenom') %></a></th>
- <th><a href='/trier/courriel/<%= objOrdre.courriel  %>'>Telephone</a></th>
- <th><a href='/trier/telephone/<%= objOrdre.telephone  %>'>Courriel</a></th>
+ <th><a href='/trier/courriel/<%= objOrdre.courriel  %>'><%= __('courriel') %></a></th>
+ <th><a href='/trier/telephone/<%= objOrdre.telephone  %>'><%= __('telephone') %></a></th>
  <th></th> 
  <th></th>
  <th></th> 

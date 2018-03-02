@@ -1,4 +1,13 @@
 {
-	"first name": "prenom",
-	"Hello": "Hello"
+	"prenom": "prenom",
+	"Hello": "Hello",
+	"nom": "nom",
+	"vide": "vide",
+	"accueil": "accueil",
+	"adresse": "adresse",
+	"peupler": "peupler",
+	"ajouter": "ajouter",
+	"courriel": "courriel",
+	"telephone": "telephone",
+	"et" : "et"
 }

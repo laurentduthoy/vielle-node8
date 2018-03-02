@@ -3,6 +3,7 @@ const app = express();
 app.use(express.static('public'));
 const MongoClient = require('mongodb').MongoClient;
 const util = require("util");
+const i18n = require('i18n');
 const ObjectID = require('mongodb').ObjectID;
 
 /* on associe le moteur de vue au module «ejs» */
@@ -11,6 +12,13 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 let cookieParser = require('cookie-parser')
 app.use(cookieParser())
+
+i18n.configure({ 
+
+   locales : ['fr', 'en'],
+   cookie : 'langueChoisie', 
+   directory : __dirname + '/locales' })
+app.use(i18n.init);
 
 
 app.set('view engine', 'ejs'); // générateur de template
@@ -154,17 +162,6 @@ app.get('/afficherUtilisateur/:id', (req, res) => {
 })
 
 //changement de langue
-
-const i18n = require('i18n');
-app.use(i18n.init);
-
-i18n.configure({ 
-
-   locales : ['fr', 'en'],
-   cookie : 'langueChoisie', 
-   directory : __dirname + '/locales' })
-
-
 app.get('/:locale(en|fr)' , (req,res) => {
 	res.cookie('langueChoisie' , req.params.locale)
 	res.setLocale(req.params.locale)
@@ -175,4 +172,21 @@ app.get("/" , function (req,res){
 	res.render('accueil.ejs')
 	console.log('Cookies: ', req.cookies)
 	console.log('Cookies: ', req.cookies.langueChoisie)
+})
+
+
+// ajax
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
+
+app.post('/ajax_modifier', (req,res) => {
+   req.body._id = ObjectID(req.body._id)
+
+   db.collection('adresse').save(req.body, (err, result) => {
+   if (err) return console.log(err)
+    	console.log('sauvegarder dans la BD')
+  		res.send(JSON.stringify(req.body));
+   //res.send(204)
+   })
 })
